@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	
+	<style>
+
+#pattern {
+	background-image: url(images/29-a.png),url(images/37-a.png), url(images/53-a.png);
+	width: 800px;
+	height: 500px;
+}
+	</style>
+	
+	
+</head>
+<body>
+	
+	<div id="pattern"></div>
+	<canvas id="stripes" width="800" height="500"></canvas>
+	
+	<script src="cicada.js"></script>
+	
+<script>
+
+
+var cancan = document.getElementById('stripes')
+
+cancan.cicada([
+	{
+		width:53,
+		color: [ 'rgba(239, 234, 211, 0.5)', 'rgba(191, 169, 124, 0.5)' ],
+		alignment: 'middle'
+	},{
+		width: 37,
+		color: 'rgba(145, 0, 42, 0.5)',
+		alignment: 'left'
+	},{
+		width: 29,
+		color: [ 'rgba(125, 167, 180, 0.5)', 'rgba(75, 119, 130, 0.5)' ],
+		alignment: 'left'
+	}
+])
+
+
+
+	
+		
+</script>
+
+</body>
+</html>
