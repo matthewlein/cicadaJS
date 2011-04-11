@@ -1,0 +1,171 @@
+<!doctype html>
+
+<!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>	   <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>	   <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+
+	<title>cicadaJS - &lt;canvas&gt; Stripe Pattern Generator - Matthew Lein</title>
+	<meta name="description" content="A <canvas> script to create amazing stripe patterns. Tiny and easy to use!">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link  href="http://fonts.googleapis.com/css?family=Neuton:regular" rel="stylesheet" type="text/css" >
+
+<link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+<body>
+	
+	<canvas id="bgcanvas"></canvas>
+	
+	<div id="wrapper">
+		<header>
+			<h1>cicadaJS</h1>
+			<a href="http://twitter.com/share" class="twitter-share-button" data-text="cicadaJS - canvas script to create amazing stripe patterns" data-count="none" data-via="matthewlein">Tweet</a>
+			<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+		</header>
+		<section id="main">
+			
+			<p>cicadaJS is a &lt;canvas&gt; script used to create stripe patterns. It supports unlimited stripes, gradients, and more!</p>
+			
+			<p>I was intrigued by the <a href="http://designfestival.com/the-cicada-principle-and-why-it-matters-to-web-designers/" target="_blank">The Cicada Principle and Why It Matters to Web Designers</a> article, especially the striped example.<br>This is based on that concept.</p>
+			
+			<a href="https://github.com/matthewlein/cicadaJS" class="downloadGithub">Download at Github</a>
+			
+			<section id="demos">
+				<h2>Demo</h2>
+				
+				<p>
+					Here is a comparison between the original image-based demo (top) and my canvas version (bottom). You’ll notice a small variation in colors, but aside from that it’s a darn-good replica.
+				</p>
+				<div class="examples">
+					<figure id="pattern"></figure>
+					<canvas id="stripes" width="800" height="100"></canvas>
+				</div>
+				
+				<p>This page also uses cicadaJS for the background.</p>
+				
+				<h3>Other Demos</h3>
+				<p>
+					<a href="demos/bg-random.html">Random Sizes and Colors</a>
+				</p>
+			</section>
+			
+			<section id="howToUse">
+				<h2>How does it work?</h2>
+				<p>cicadaJS provides a <code>cicada()</code> method for canvas elements. It accepts an Array of Objects that define the number of stripes, their colors, widths, and alignment.</p>
+				<p>This is the code to generate the example above:</p>
+<pre>
+canvas.cicada([
+  {
+    width:53,
+    color: [ 'rgba(239, 234, 211, 0.5)', 'rgba(191, 169, 124, 0.5)' ],
+    alignment: 'middle'
+  }, {
+    width: 37,
+    color: 'rgba(145, 0, 42, 0.5)',
+    alignment: 'left'
+  }, {
+    width: 29,
+    color: [ 'rgba(125, 167, 180, 0.5)', 'rgba(75, 119, 130, 0.5)' ],
+    alignment: 'left'
+  }
+])</pre>
+			
+			
+				<p><code>width: Number</code> sets the width of the tile area. Keep in mind that the actual stripe only fills half of this size. The other half is empty.</p>
+
+				<p><code>color: 'String' or Array</code> specifies the stripe color(s). You can use any CSS3 color, including HLSA and RGBA. Transparency is key to making the patterns less repetitive. If you use an Array, it will create a gradient with evenly distributed color stops from your colors.</p>
+
+				<p><code>alignment: ['left','middle','right']</code> (optional) Sets the alignment of the stripe within the tile area. Nice to stagger the stripes so the left side isn't always a dark stack of all 3. Defaults to 'left'</p>
+				
+				<p>If you have any issues or contributions, please leave them at <a href="://github.com/matthewlein/cicadaJS">github.</a></p>
+			</section>	
+				
+			<section id="whyUse">
+				<h2>Why use it?</h2>
+				<p>cicadaJS has the advantages of being smaller (&lt;1k), fewer http connections, and editable without a graphics program. Hurray! Also (although untested), it should work in older IE versions by utilizing excanvas or some equivalent.</p>
+			</section>
+
+
+		</section>
+		
+		<section id="comments">
+			<script>
+				var disqus_identifier = 'CicadaJS';
+			</script>
+			<!--#include virtual="/inc/experiment-disqus.html" -->
+		</section>
+
+
+	</div>
+
+<script src="cicada.1.0.min.js"></script>
+
+<script>
+
+// get the canvas
+var cancan = document.getElementById('stripes'),
+	bgcanvas = document.getElementById('bgcanvas')
+
+// stripe it up!
+cancan.cicada([
+	{
+		width:53,
+		color: [ 'rgba(239, 234, 211, 0.5)', 'rgba(191, 169, 124, 0.5)' ],
+		alignment: 'middle'
+	}, {
+		width: 37,
+		color: 'rgba(145, 0, 42, 0.5)',
+		alignment: 'left'
+	}, {
+		width: 29,
+		color: [ 'rgba(125, 167, 180, 0.5)', 'rgba(75, 119, 130, 0.5)' ],
+		alignment: 'left'
+	}
+])
+
+var canvas = document.getElementById('stripes'),
+	output = document.getElementById('codeOutput')
+
+window.addEventListener('resize', onWindowResize, false)
+
+// resize the canvas to the window size
+function onWindowResize() {
+
+ 	bgcanvas.width = window.innerWidth;
+	bgcanvas.height = window.innerHeight;
+
+	draw();
+
+}
+
+function draw() {
+	bgcanvas.cicada([ 
+		{ 
+			width: 193,
+			color: 'rgba(175, 140, 60, 0.5)',
+			alignment: 'middle',
+		}, {
+			width: 281,
+			color: 'rgba(196, 241, 142, 0.5)',
+			alignment: 'left',
+		}, {
+			width: 401,
+			color: 'rgba(25, 156, 248, 0.5)',
+			alignment: 'right'
+		}
+	])
+}
+
+onWindowResize()
+
+</script>
+<!--#include virtual="/inc/google.html" -->
+
+</body>
+</html>

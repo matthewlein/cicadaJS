@@ -1,0 +1,126 @@
+<!doctype html>
+
+<!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>	   <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>	   <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+
+	<title>cicadaJS - Random Colors and Sizes Demo - Matthew Lein</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link  href="http://fonts.googleapis.com/css?family=Neuton:regular" rel="stylesheet" type="text/css" >
+
+<link rel="stylesheet" href="../css/style.css">
+
+
+</head>
+
+<body>
+	
+	<canvas id="bgcanvas"></canvas>
+	
+	<div id="wrapper">
+		<header>
+			<h1>Random Colors and Sizes</h1>
+		</header>
+		<section id="main">
+			
+			<p>This is the “Inspiration” page. Every time the page is loaded it will generate randomly sized (from a list of primes) and colored stripes. The&nbsp;cicadaJS code needed to reproduce this is also generated. You can tweak it from there, adding gradients or changing widths as you please. Also note that the background color is the white that you see.</p>
+			<p>Incredibly, I’ve found that the color combinations look pretty good most of the time. I think the transparency helps to make the colors work together, but it is surprising.</p>
+			<code id="codeOutput"></code>
+			<h2>Full-Page Canvas</h2>
+			<p>To get the canvas fill the entire background, you have to bind a function to the window resize event. I did a basic one for demo purposes, but you should consider throttling or debouncing the function so it doesn’t run excessively on resize.</p>
+				
+		</section>
+
+		<footer>
+			<nav>
+				<ul>
+					<li><a href="../">Home</a></li>
+				</ul>
+			</nav>
+		</footer>
+	</div>
+
+<script src="../cicada.1.0.min.js"></script>
+<script>
+
+
+var canvas = document.getElementById('bgcanvas'),
+	output = document.getElementById('codeOutput')
+
+window.addEventListener('resize', onWindowResize, false)
+
+// resize the canvas to the window size
+function onWindowResize() {
+
+ 	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+
+	draw();
+
+}
+
+function randomNumber(low, high) {
+	return Math.floor( Math.random() * (1 + high - low) ) + low;
+};
+
+var primes = [29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409, 419, 421, 431, 433, 439, 443, 449, 457, 461, 463, 467, 479, 487, 491, 499]
+
+var randC1 = 'rgba(' + randomNumber(0,255) + ', ' + randomNumber(0,255) + ', ' + randomNumber(0,255) + ', 0.5)',
+	randC2 = 'rgba(' + randomNumber(0,255) + ', ' + randomNumber(0,255) + ', ' + randomNumber(0,255) + ', 0.5)',
+	randC3 = 'rgba(' + randomNumber(0,255) + ', ' + randomNumber(0,255) + ', ' + randomNumber(0,255) + ', 0.5)',
+	randW1 = randomNumber(0, primes.length-1),
+	randW2 = randomNumber(0, primes.length-1),
+	randW3 = randomNumber(0, primes.length-1),
+	tab = '&nbsp;&nbsp;&nbsp;&nbsp;'
+	
+	// code output
+	output.innerHTML =
+	'canvas.cicada([ <br>' +
+		tab + '{ <br>' + 
+			tab + tab + 'width: ' + primes[randW1] + ',<br>' + 
+			tab + tab + 'color: ' + "'" + randC1 + "'" + ',<br>' + 
+			tab + tab + "alignment: 'middle',<br>" +  
+		tab + '}, {<br>' + 
+			tab + tab + 'width: ' + primes[randW2] + ',<br>' + 
+			tab + tab + 'color: ' + "'" + randC2 + "'" + ',<br>' + 
+			tab + tab + "alignment: 'left',<br>" +
+		tab + '}, {<br>' + 
+			tab + tab + 'width: ' + primes[randW3] + ',<br>' + 
+			tab + tab + 'color: ' + "'" + randC3 + "'" + ',<br>' + 
+			tab + tab + "alignment: 'right'<br>" +
+		tab + '}<br>' +
+	'])'
+
+// draw the stripes
+function draw() {
+
+	canvas.cicada([
+		{
+			width: primes[randW1],
+			color: randC1,
+			alignment: 'middle'
+		}, {
+			width: primes[randW2],
+			color: randC2,
+			alignment: 'left'
+		}, {
+			width: primes[randW3],
+			color: randC3,
+			alignment: 'right'
+		}
+	])
+
+}
+
+// run once on page load
+onWindowResize()
+	
+		
+</script>
+
+</body>
+</html>

@@ -1,3 +1,16 @@
+/*
+ * cicadaJS
+ * matthewlein.com/cicadajs
+ * 
+ * Developed by Matthew Lein
+ * matthewlein.com
+ * 
+ * Released under the MIT license.
+ * Please leave this license info and author info intact.
+ * 
+ * Copyright 2011
+ */ 
+
 var cicada = {
 	
 	supportsCanvas : function() {
@@ -31,7 +44,7 @@ var cicada = {
 			if (alignment === 'middle') {
 				offset = stripeWidth/2;
 			} else if (alignment === 'right') {
-				offset = stripeWidth
+				offset = stripeWidth;
 			}
 	
 			for (var i=0; i < repeats; i++) {
@@ -41,14 +54,14 @@ var cicada = {
 					var lingrad = ctx.createLinearGradient( (tile * i) + offset, 0, (tile * i) + offset + stripeWidth, 0),
 						
 						//get the number of color stops needed
-						stopAmount = 1 / (current.color.length - 1 )
+						stopAmount = 1 / (current.color.length - 1 );
 					
 					// put in the color stops evenly across the rectangle	
 					for (var k=0; k < current.color.length; k++) {
 						lingrad.addColorStop( stopAmount * k , current.color[k] );
 					}
 			
-					ctx.fillStyle = lingrad
+					ctx.fillStyle = lingrad;
 		
 				} else {
 					// its a plain old string color
@@ -64,10 +77,10 @@ var cicada = {
 	}
 
 
-}
+};
 
 if ( cicada.supportsCanvas ) {
-	// prototype the cicada method onto canvases
+	// prototype the cicada method onto canvas
 	HTMLCanvasElement.prototype.cicada = function ( options ) { 
 		// pass in the img and options
 		cicada.stripe( this, options );
