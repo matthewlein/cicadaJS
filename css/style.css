@@ -297,8 +297,11 @@ pre {
 
 footer {
 	margin-top: 20px;
-	margin-left: -10px;
 	overflow: hidden;
+}
+
+footer nav {
+	margin-left: -10px;
 }
 
 footer nav li {
